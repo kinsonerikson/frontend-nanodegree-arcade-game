@@ -103,12 +103,17 @@ Player.prototype.update = function() {
 	//Player Wins if they reach the top row
 	if(this.y <= -20)
 	{
+		/*
 		//the top of the sprite remains up top unless we redraw the row
 		this.x=gameOptions.startX;
 		this.y=gameOptions.startY;
 		for (col = 0; col < 5; col++) {
 			ctx.drawImage(Resources.get('images/water-block.png'), col * 101, 0);
 		}
+		*/
+		runGame = false;
+		$('#victoryScreen').modal('show');
+		
 	}
 }
 Player.prototype.render = function() {
