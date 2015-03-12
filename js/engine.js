@@ -27,8 +27,8 @@ var Engine = (function(global) {
 
     canvas.width = 505;
     canvas.height = 606;
-    doc.body.appendChild(canvas);
-
+    //doc.body.appendChild(canvas);
+	document.getElementById('canvasWrapper').appendChild(canvas);
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -39,6 +39,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
+		if(runGame) {
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
@@ -52,11 +53,11 @@ var Engine = (function(global) {
          * for the next time this function is called.
          */
         lastTime = now;
-
+		}
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
-         */
-        win.requestAnimationFrame(main);
+         */		 
+       	win.requestAnimationFrame(main);
     };
 
     /* This function does some initial setup that should only occur once,
@@ -172,7 +173,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+		'images/char-cat-girl.png',
+		'images/char-horn-girl.png',
+		'images/char-pink-girl.png',
+		'images/char-princess-girl.png',
     ]);
     Resources.onReady(init);
 

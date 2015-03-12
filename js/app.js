@@ -1,11 +1,21 @@
 // Enemies our player must avoid
+var runGame = false;
+var gameOptions = {
+	"player" : "images/char-boy.png",
+	"enemy" : "images/enemy-bug.png",
+	"startX" : 200,
+	"startY" : 380
+}
+var allEnemies = [];
+var player = {};
+$('#mainMenu').modal('show');
 var Enemy = function(startX,startY,startSpeed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = gameOptions.enemy;
 	this.x=startX;
 	this.y=startY;
 	this.speed = startSpeed;
@@ -27,22 +37,15 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
-
-// This function generates a random number between minValue and maxValue, inclusive
-// Thanks stackoverflow! http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
-function randomize(minValue,maxValue) {
-	return Math.random() * (maxValue - minValue) + minValue;
-}
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 
 var Player = function() {
-	this.sprite = 'images/char-boy.png';
-	//Hard coded starting positions are for the bottom-middle tile.
-	this.x=200;
-	this.y=380;
+	this.sprite = gameOptions.player;
+	//set the player at the starting positions
+	this.x=gameOptions.startX;
+	this.y=gameOptions.startY;
 }
 Player.prototype.handleInput = function(keyPress) {
 	//Move the character up the screen by subtracting pixels since top of the screen is 0, but don't go above -20 or that will be "off the board"
@@ -93,37 +96,74 @@ Player.prototype.update = function() {
 		//row, that's a hit.
 		if(((minP >= minE && minP<=maxE) || (maxP >= minE && maxP <=maxE)) && this.y == e.y)
 		{
-			this.y = 380;
-			this.x = 200;
+			this.x=gameOptions.startX;
+			this.y=gameOptions.startY;
+		}
+	}
+	//Player Wins if they reach the top row
+	if(this.y <= -20)
+	{
+		//the top of the sprite remains up top unless we redraw the row
+		this.x=gameOptions.startX;
+		this.y=gameOptions.startY;
+		for (col = 0; col < 5; col++) {
+			ctx.drawImage(Resources.get('images/water-block.png'), col * 101, 0);
 		}
 	}
 }
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
+// This function generates a random number between minValue and maxValue, inclusive
+// Thanks stackoverflow! http://stackoverflow.com/questions/1527803/generating-random-numbers-in-javascript-in-a-specific-range
+function randomize(minValue,maxValue) {
+	return Math.random() * (maxValue - minValue) + minValue;
+}
+
+//Once options have been picked, this will start the game.
+function startGame() {	
+	// Now instantiate your objects.
+	// Place all enemy objects in an array called allEnemies
+	// Place the player object in a variable called player
 	
+	player = new Player();
+	var startY = 60;
+	// To keep things interesting I have randomized the starting left and right (x) positions as well as the speed for enemies
+	for(var i=0;i<3;i++) {
+		var startX = randomize(100,500);
+		var startSpeed = randomize(100,400);
+		allEnemies.push(new Enemy(startX,startY,startSpeed));
+		startY+=80;
+	}
+	// This listens for key presses and sends the keys to your
+	// Player.handleInput() method. You don't need to modify this.
+	document.addEventListener('keyup', function(e) {
+		var allowedKeys = {
+			37: 'left',
+			38: 'up',
+			39: 'right',
+			40: 'down'
+		};
+	
+		player.handleInput(allowedKeys[e.keyCode]);
+	});
+	runGame = true;	
+	$('#mainMenu').modal('hide');
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-var allEnemies = [];
-var player = new Player();
-var startY = 60;
-for(var i=0;i<3;i++) {
-	var startX = randomize(100,500);
-	var startSpeed = randomize(100,400);
-	allEnemies.push(new Enemy(startX,startY,startSpeed));
-	startY+=80;
+//This function is called when a player clicks on a sprite in the main menu during set up of the game.
+function changeChar(charType,itm) {
+	// First get the ID of the clicked sprite and then build the image path
+	var id = $(itm).data('sprite');
+	var sprite = 'images/' + id + '.png';
+	// Then select all of the appropriate sprites and remove their 'Active' status and set them to 'Inactive'
+	$('.'+charType+'Active').each(function(idx,el){
+		$(this).addClass('charInactive');
+		$(this).removeClass(charType+'Active');
+	});
+	// Set the one we clicked to 'Active' and remove 'Inactive'
+	$('#'+charType+'-'+id).removeClass('charInactive').addClass(charType+'Active');
+	//Update the gameoptions with the sprite that was chosen
+	gameOptions[charType] = sprite;
 }
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
-
-    player.handleInput(allowedKeys[e.keyCode]);
-});

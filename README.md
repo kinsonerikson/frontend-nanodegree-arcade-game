@@ -1,6 +1,5 @@
-frontend-nanodegree-arcade-game
-===============================
+The object of the game is to get your character across the road without touching any bugs!!
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+To move your player use the arrow keys on your keyboard to move the character up, down, left, and right.
 
-for self-checking their submission.
+If you touch a bug you will be teleported back to the beginning, allowing you to start over.

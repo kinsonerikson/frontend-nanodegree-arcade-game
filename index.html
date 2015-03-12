@@ -2,14 +2,114 @@
 <html>
 <head>
     <title>Effective JavaScript: Frogger</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/theme.css">    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<div class="container">
+    	<div class="modal fade" id="mainMenu" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">                        
+                        <h3 class="modal-title">Main Menu</h3>
+                    </div>
+                    <div class="modal-body">
+                    	<h4>Choose Your Character</h4>
+                        <div class="row">
+                        	<div class="col-sm-3 col-xs-6" >
+                            	<a href="javascript:void(0);" onClick="changeChar('player',this);" data-sprite="char-boy">
+                                	<img src="images/char-boy.png" class="player playerActive" id="player-char-boy">
+								</a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('player',this);" data-sprite="char-cat-girl">
+                            		<img src="images/char-cat-girl.png" class="player charInactive" id="player-char-cat-girl">
+                                </a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('player',this);" data-sprite="char-horn-girl">
+	                            	<img src="images/char-horn-girl.png" class="player charInactive" id="player-char-horn-girl">
+								</a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('player',this);" data-sprite="char-pink-girl">
+                            		<img src="images/char-pink-girl.png" class="player charInactive" id="player-char-pink-girl">
+                                </a>
+                            </div>
+						</div>
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('player',this);" data-sprite="char-princess-girl">
+	                            	<img src="images/char-princess-girl.png" class="player charInactive" id="player-char-princess-girl">
+                                </a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('player',this);" data-sprite="enemy-bug">
+	                            	<img src="images/enemy-bug.png" class="player charInactive" id="player-enemy-bug">
+                                </a>
+                            </div>
+                        </div>
+                        <hr>
+                        <h4>Choose Your <span class="text-danger">Enemy</span></h4>
+                        <div class="row">
+                        	<div class="col-sm-3 col-xs-6" >
+                            	<a href="javascript:void(0);" onClick="changeChar('enemy',this);" data-sprite="char-boy">
+                                	<img src="images/char-boy.png" class="enemy charInactive" id="enemy-char-boy">
+								</a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('enemy',this);" data-sprite="char-cat-girl">
+                            		<img src="images/char-cat-girl.png" class="enemy charInactive" id="enemy-char-cat-girl">
+                                </a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('enemy',this);" data-sprite="char-horn-girl">
+	                            	<img src="images/char-horn-girl.png" class="enemy charInactive" id="enemy-char-horn-girl">
+								</a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('enemy',this);" data-sprite="char-pink-girl">
+                            		<img src="images/char-pink-girl.png" class="enemy charInactive" id="enemy-char-pink-girl">
+                                </a>
+                            </div>
+						</div>
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('enemy',this);" data-sprite="char-princess-girl">
+	                            	<img src="images/char-princess-girl.png" class="enemy charInactive" id="enemy-char-princess-girl">
+                                </a>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                            	<a href="javascript:void(0);" onClick="changeChar('enemy',this);" data-sprite="enemy-bug">
+	                            	<img src="images/enemy-bug.png" class="enemy enemyActive" id="enemy-enemy-bug">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">                        
+                        <button type="button" class="btn btn-primary" onClick="startGame();">Play!</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    	<div class="row">
+        	<div class="col-lg-12 text-center">
+            	<h1><small>not</small> Frogger</h1>
+            </div>
+        </div>
+    	<div class="row">
+        	<div class="col-lg-12 text-center">
+				<div id="canvasWrapper"></div>
+			</div>
+		</div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
-    <div id="dataDump">
-    	
-    </div>
+    
 </body>
 </html>

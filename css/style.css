@@ -1,3 +1,15 @@
-body {
-    text-align: center;
+.playerActive {
+	-webkit-box-shadow: rgba(82, 168, 236, 0.6) 0px 0px 8px 0px;
+	box-shadow: rgba(82, 168, 236, 0.6) 0px 0px 8px 0px;
+	border:1px solid rgba(82, 168, 236, 0.8);
+}
+.enemyActive {
+	-webkit-box-shadow: rgba(129, 17, 22, 0.6) 0px 0px 8px 0px;
+	box-shadow: rgba(129, 17, 22, 0.6) 0px 0px 8px 0px;
+	border:1px solid rgba(129, 17, 22, 0.8);
+}
+.charInactive {
+	-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 8px 0px;
+	box-shadow: rgba(0, 0, 0, 0.6) 0px 0px 8px 0px;
+	border:1px solid rgba(30, 30, 30, 0.8);
 }
